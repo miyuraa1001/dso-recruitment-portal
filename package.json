@@ -1,19 +1,5 @@
 {
-  "name": "e-pkb-dso",
+  "name": "dso-recruitment-portal",
   "version": "1.0.0",
-  "description": "Portal Digitalisasi Formulir Penerimaan Karyawan Baru (E-PKB) - PT Astra International Tbk - DSO",
-  "main": "index.html",
-  "scripts": {
-    "dev": "vercel dev"
-  },
-  "keywords": [
-    "recruitment",
-    "dso",
-    "astra",
-    "e-pkb"
-  ],
-  "author": "PT Astra International Tbk - DSO",
-  "license": "UNLICENSED",
   "private": true
 }
-
