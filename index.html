@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal E-PKB — PT Astra International Tbk - DSO</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; }
+    .form-input {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8125rem;
+      background-color: #ffffff;
+      transition: all 0.15s ease;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #0f172a;
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.08);
+    }
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 0.25rem;
+    }
+    .table-input {
+      width: 100%;
+      border: 1px solid transparent;
+      border-radius: 0.25rem;
+      padding: 0.35rem 0.5rem;
+      font-size: 0.75rem;
+      background: transparent;
+    }
+    .table-input:focus {
+      outline: none;
+      background: #fff;
+      border-color: #94a3b8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP HEADER CLEAN -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-2.5 h-7 bg-red-600 rounded-full"></div>
+        <div>
+          <h1 class="text-sm font-bold tracking-tight text-slate-900">E-PKB Digital Recruitment</h1>
+          <p class="text-[11px] text-slate-500">PT Astra International Tbk — Daihatsu Sales Operation</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
+        <button onclick="switchTab('form')" id="tab-btn-form" class="px-3.5 py-1.5 rounded-md text-xs font-semibold bg-white text-slate-900 shadow-sm transition">
+          Form Peserta
+        </button>
+        <button onclick="switchTab('hrd')" id="tab-btn-hrd" class="px-3.5 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition">
+          Data HRD & Download ZIP
+        </button>
+        <button onclick="switchTab('setup')" id="tab-btn-setup" class="px-3.5 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition">
+          Koneksi Spreadsheet
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== TAB 1: FORM PESERTA (CLEAN & KOSONGAN) ==================== -->
+  <main id="view-form" class="max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 flex-1">
+    
+    <!-- Stepper Clean -->
+    <div class="bg-white border border-slate-200 rounded-xl p-3 mb-6">
+      <div class="grid grid-cols-2 sm:grid-cols-6 gap-2 text-xs">
+        <button type="button" onclick="setStep(1)" id="step-nav-1" class="py-2 px-3 rounded-lg font-semibold bg-slate-900 text-white text-left flex items-center gap-2">
+          <span class="w-5 h-5 rounded-full bg-white/20 text-[11px] flex items-center justify-center">1</span>
+          <span class="truncate">Identitas</span>
+        </button>
+        <button type="button" onclick="setStep(2)" id="step-nav-2" class="py-2 px-3 rounded-lg font-medium text-slate-600 hover:bg-slate-50 text-left flex items-center gap-2">
+          <span class="w-5 h-5 rounded-full bg-slate-100 text-[11px] flex items-center justify-center">2</span>
+          <span class="truncate">Keluarga</span>
+        </button>
+        <button type="button" onclick="setStep(3)" id="step-nav-3" class="py-2 px-3 rounded-lg font-medium text-slate-600 hover:bg-slate-50 text-left flex items-center gap-2">
+          <span class="w-5 h-5 rounded-full bg-slate-100 text-[11px] flex items-center justify-center">3</span>
+          <span class="truncate">Pendidikan</span>
+        </button>
+        <button type="button" onclick="setStep(4)" id="step-nav-4" class="py-2 px-3 rounded-lg font-medium text-slate-600 hover:bg-slate-50 text-left flex items-center gap-2">
+          <span class="w-5 h-5 rounded-full bg-slate-100 text-[11px] flex items-center justify-center">4</span>
+          <span class="truncate">Pekerjaan</span>
+        </button>
+        <button type="button" onclick="setStep(5)" id="step-nav-5" class="py-2 px-3 rounded-lg font-medium text-slate-600 hover:bg-slate-50 text-left flex items-center gap-2">
+          <span class="w-5 h-5 rounded-full bg-slate-100 text-[11px] flex items-center justify-center">5</span>
+          <span class="truncate">Sosial & Diri</span>
+        </button>
+        <button type="button" onclick="setStep(6)" id="step-nav-6" class="py-2 px-3 rounded-lg font-medium text-slate-600 hover:bg-slate-50 text-left flex items-center gap-2">
+          <span class="w-5 h-5 rounded-full bg-slate-100 text-[11px] flex items-center justify-center">6</span>
+          <span class="truncate">Bank & TTD</span>
+        </button>
+      </div>
+    </div>
+
+    <form id="candidate-form" onsubmit="handleFormSubmit(event)" class="bg-white border border-slate-200 rounded-xl p-6 sm:p-8 shadow-sm">
+      
+      <!-- STEP 1: IDENTITAS -->
+      <div id="step-1" class="space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <h2 class="text-base font-bold text-slate-900">Bagian 1 — Identitas Diri & Posisi</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Data ini akan mengisi otomatis sheet FLK, No.Rekening, Surat Setor Uang, DPA, dan PDK.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="form-label">Posisi yang Dilamar *</label>
+            <select id="posisi" required class="form-input">
+              <option value="">-- Pilih Posisi --</option>
+              <option value="Sales">Sales</option>
+              <option value="Counter Sales">Counter Sales</option>
+              <option value="Kasir">Kasir</option>
+              <option value="Administrasi">Administrasi</option>
+              <option value="Accounting">Accounting</option>
+              <option value="Service / Mekanik">Service / Mekanik</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Nama Lengkap (Sesuai Ijazah/KTP) *</label>
+            <input type="text" id="nama" required class="form-input uppercase" placeholder="HURUF CETAK" />
+          </div>
+          <div>
+            <label class="form-label">Nama Panggilan *</label>
+            <input type="text" id="panggilan" required class="form-input uppercase" />
+          </div>
+
+          <div>
+            <label class="form-label">Tempat Lahir *</label>
+            <input type="text" id="tempat_lahir" required class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Tanggal Lahir *</label>
+            <input type="date" id="tgl_lahir" required class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Jenis Kelamin *</label>
+            <select id="jk" required class="form-input">
+              <option value="">-- Pilih --</option>
+              <option value="Laki-laki">Laki-laki</option>
+              <option value="Perempuan">Perempuan</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="form-label">Agama *</label>
+            <select id="agama" required class="form-input">
+              <option value="">-- Pilih --</option>
+              <option value="Islam">Islam</option>
+              <option value="Kristen">Kristen</option>
+              <option value="Katolik">Katolik</option>
+              <option value="Hindu">Hindu</option>
+              <option value="Buddha">Buddha</option>
+              <option value="Konghucu">Konghucu</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Nomor KTP / SIM *</label>
+            <input type="text" id="ktp" required maxlength="16" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Nomor NPWP</label>
+            <input type="text" id="npwp" class="form-input" />
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="form-label">Alamat Lengkap (Sesuai KTP) *</label>
+            <input type="text" id="alamat" required class="form-input" />
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="form-label">Kota *</label>
+              <input type="text" id="kota" required class="form-input" />
+            </div>
+            <div>
+              <label class="form-label">Kode Pos</label>
+              <input type="text" id="kodepos" class="form-input" />
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label">No. Handphone *</label>
+            <input type="text" id="hp" required class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">No. Telp Rumah</label>
+            <input type="text" id="telp_rumah" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Alamat E-mail *</label>
+            <input type="email" id="email" required class="form-input" />
+          </div>
+
+          <div>
+            <label class="form-label">Rumah yang Ditempati (FLK) *</label>
+            <select id="rumah" class="form-input">
+              <option value="Rumah Orang Tua">Rumah Orang Tua</option>
+              <option value="Rumah Pribadi">Rumah Pribadi</option>
+              <option value="Kontrak">Kontrak</option>
+              <option value="Sewa">Sewa</option>
+              <option value="Kost">Kost</option>
+              <option value="Lain-Lain">Lain-Lain</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Kendaraan yang Digunakan (FLK) *</label>
+            <select id="kendaraan" class="form-input">
+              <option value="Motor">Motor</option>
+              <option value="Mobil">Mobil</option>
+              <option value="Kendaraan Umum">Kendaraan Umum</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex justify-end pt-4 border-t border-slate-100">
+          <button type="button" onclick="setStep(2)" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-5 py-2.5 rounded-lg">
+            Selanjutnya: Data Keluarga <i class="fa-solid fa-arrow-right ml-1.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 2: LINGKUNGAN KELUARGA & AHLI WARIS -->
+      <div id="step-2" class="hidden space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <h2 class="text-base font-bold text-slate-900">Bagian 2 — Lingkungan Keluarga & Ahli Waris</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Mengisi otomatis Susunan Keluarga di FLK, DPA, dan PDK.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="form-label">Status Pernikahan (FLK & PDK) *</label>
+            <select id="status_nikah" class="form-input">
+              <option value="Single">Single</option>
+              <option value="Tunangan">Tunangan</option>
+              <option value="Menikah">Menikah</option>
+              <option value="Bercerai">Bercerai</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Status Keluarga (Khusus DPA) *</label>
+            <select id="status_dpa" class="form-input">
+              <option value="Tidak kawin">Tidak kawin</option>
+              <option value="Kawin tanpa anak">Kawin tanpa anak</option>
+              <option value="Kawin - 1 anak">Kawin - 1 anak</option>
+              <option value="Kawin - 2 anak">Kawin - 2 anak</option>
+              <option value="Kawin - 3 anak">Kawin - 3 anak</option>
+              <option value="Kawin - > 3 anak">Kawin - > 3 anak</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Tanggal Menikah / Tunangan / Cerai</label>
+            <input type="date" id="tgl_nikah" class="form-input" />
+          </div>
+        </div>
+
+        <!-- Tabel Keluarga Inti (Suami/Istri & Anak 1-4) -->
+        <div>
+          <label class="form-label mb-2">1. Susunan Keluarga (Suami/Istri dan Anak) — Kosongkan jika Single</label>
+          <div class="border border-slate-200 rounded-lg overflow-x-auto">
+            <table class="w-full text-xs">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                <tr>
+                  <th class="p-2 text-left w-28">Hubungan</th>
+                  <th class="p-2 text-left">Nama</th>
+                  <th class="p-2 text-left w-16">L/P</th>
+                  <th class="p-2 text-left">Tempat/Tgl. Lahir</th>
+                  <th class="p-2 text-left">Pendidikan</th>
+                  <th class="p-2 text-left">Pekerjaan</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-inti" class="divide-y divide-slate-200"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tabel Keluarga Ortu (Ayah, Ibu, Anak 1-7) -->
+        <div>
+          <label class="form-label mb-2">2. Susunan Keluarga (Ayah, Ibu, Saudara Sekandung, Termasuk Anda)</label>
+          <div class="border border-slate-200 rounded-lg overflow-x-auto">
+            <table class="w-full text-xs">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                <tr>
+                  <th class="p-2 text-left w-28">Hubungan</th>
+                  <th class="p-2 text-left">Nama</th>
+                  <th class="p-2 text-left w-16">L/P</th>
+                  <th class="p-2 text-left">Tempat/Tgl. Lahir</th>
+                  <th class="p-2 text-left">Pendidikan</th>
+                  <th class="p-2 text-left">Pekerjaan</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-ortu" class="divide-y divide-slate-200"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tabel Ahli Waris (DPA & PDK) -->
+        <div>
+          <label class="form-label mb-2">3. Data Keluarga yang Sah / Ahli Waris (Untuk Form DPA & PDK)</label>
+          <div class="border border-slate-200 rounded-lg overflow-x-auto">
+            <table class="w-full text-xs">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                <tr>
+                  <th class="p-2 text-center w-10">No</th>
+                  <th class="p-2 text-left">Nama Ahli Waris</th>
+                  <th class="p-2 text-left">Tempat / Tgl Lahir</th>
+                  <th class="p-2 text-left w-20">L/P</th>
+                  <th class="p-2 text-left">Hubungan Keluarga</th>
+                  <th class="p-2 text-left">Pekerjaan</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-waris" class="divide-y divide-slate-200"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="flex justify-between pt-4 border-t border-slate-100">
+          <button type="button" onclick="setStep(1)" class="border border-slate-300 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-lg">Kembali</button>
+          <button type="button" onclick="setStep(3)" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-5 py-2.5 rounded-lg">Selanjutnya: Pendidikan <i class="fa-solid fa-arrow-right ml-1.5"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 3: PENDIDIKAN & BAHASA -->
+      <div id="step-3" class="hidden space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <h2 class="text-base font-bold text-slate-900">Bagian 3 — Pendidikan Formal, Non-Formal & Bahasa</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Mengisi otomatis Bagian C pada sheet FLK.</p>
+        </div>
+
+        <div>
+          <label class="form-label mb-2">1. Pendidikan Formal (SMA, Diploma, S1)</label>
+          <div class="border border-slate-200 rounded-lg overflow-x-auto">
+            <table class="w-full text-xs">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                <tr>
+                  <th class="p-2 text-left w-16">Tingkat</th>
+                  <th class="p-2 text-left">Nama Sekolah / Universitas</th>
+                  <th class="p-2 text-left">Fakultas</th>
+                  <th class="p-2 text-left">Jurusan</th>
+                  <th class="p-2 text-left">Prog. Studi</th>
+                  <th class="p-2 text-left">Tempat</th>
+                  <th class="p-2 text-left w-28">Tahun (...s/d...)</th>
+                  <th class="p-2 text-left w-24">Ket Lulus</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-pendidikan" class="divide-y divide-slate-200"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label mb-2">2. Pendidikan Non-Formal (Kursus / Training)</label>
+          <div class="border border-slate-200 rounded-lg overflow-x-auto">
+            <table class="w-full text-xs">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                <tr>
+                  <th class="p-2 text-center w-10">No</th>
+                  <th class="p-2 text-left">Nama Kursus / Training</th>
+                  <th class="p-2 text-left">Tempat</th>
+                  <th class="p-2 text-left w-32">Tahun (...s/d...)</th>
+                  <th class="p-2 text-left">Keterangan</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-kursus" class="divide-y divide-slate-200"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label mb-2">3. Bahasa Asing yang Dikuasai</label>
+          <div class="border border-slate-200 rounded-lg overflow-x-auto">
+            <table class="w-full text-xs">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                <tr>
+                  <th class="p-2 text-center w-10">No</th>
+                  <th class="p-2 text-left">Bahasa</th>
+                  <th class="p-2 text-left">Kemampuan Lisan</th>
+                  <th class="p-2 text-left">Kemampuan Tulisan</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-bahasa" class="divide-y divide-slate-200"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="flex justify-between pt-4 border-t border-slate-100">
+          <button type="button" onclick="setStep(2)" class="border border-slate-300 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-lg">Kembali</button>
+          <button type="button" onclick="setStep(4)" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-5 py-2.5 rounded-lg">Selanjutnya: Riwayat Pekerjaan <i class="fa-solid fa-arrow-right ml-1.5"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 4: RIWAYAT PEKERJAAN & MINAT -->
+      <div id="step-4" class="hidden space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <h2 class="text-base font-bold text-slate-900">Bagian 4 — Riwayat Pekerjaan & Minat</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Mengisi otomatis Bagian D & E pada sheet FLK.</p>
+        </div>
+
+        <div>
+          <label class="form-label mb-2">1. Pengalaman Kerja (Maksimal 5 Baris Sesuai FLK)</label>
+          <div class="border border-slate-200 rounded-lg overflow-x-auto">
+            <table class="w-full text-xs">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                <tr>
+                  <th class="p-2 text-center w-10">No</th>
+                  <th class="p-2 text-left">Nama Perusahaan</th>
+                  <th class="p-2 text-left">Jabatan</th>
+                  <th class="p-2 text-left w-28">...s/d...</th>
+                  <th class="p-2 text-left w-32">Gaji</th>
+                  <th class="p-2 text-left">Alasan Pindah</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-kerja" class="divide-y divide-slate-200"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="form-label">2. Di perusahaan mana Anda paling senang bekerja :</label>
+            <input type="text" id="pt_senang" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">3. Mengapa :</label>
+            <input type="text" id="alasan_senang" class="form-input" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-2">
+          <div>
+            <label class="form-label">Minat Pekerjaan Prioritas 1</label>
+            <select id="minat_1" class="form-input">
+              <option value="">-- Pilih --</option>
+              <option value="Sales">Sales</option>
+              <option value="Teknologi Informasi (IT)">Teknologi Informasi (IT)</option>
+              <option value="Production / Manufaktur">Production / Manufaktur</option>
+              <option value="Service / Maintenance">Service / Maintenance</option>
+              <option value="Engineering / Design">Engineering / Design</option>
+              <option value="Front Office">Front Office</option>
+              <option value="Accounting / Pembukuan">Accounting / Pembukuan</option>
+              <option value="General Affairs">General Affairs</option>
+              <option value="Administrasi">Administrasi</option>
+              <option value="HRD">HRD</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Minat Pekerjaan Prioritas 2</label>
+            <select id="minat_2" class="form-input">
+              <option value="">-- Pilih --</option>
+              <option value="Sales">Sales</option>
+              <option value="Teknologi Informasi (IT)">Teknologi Informasi (IT)</option>
+              <option value="Production / Manufaktur">Production / Manufaktur</option>
+              <option value="Service / Maintenance">Service / Maintenance</option>
+              <option value="Engineering / Design">Engineering / Design</option>
+              <option value="Front Office">Front Office</option>
+              <option value="Accounting / Pembukuan">Accounting / Pembukuan</option>
+              <option value="General Affairs">General Affairs</option>
+              <option value="Administrasi">Administrasi</option>
+              <option value="HRD">HRD</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Minat Pekerjaan Prioritas 3</label>
+            <select id="minat_3" class="form-input">
+              <option value="">-- Pilih --</option>
+              <option value="Sales">Sales</option>
+              <option value="Teknologi Informasi (IT)">Teknologi Informasi (IT)</option>
+              <option value="Production / Manufaktur">Production / Manufaktur</option>
+              <option value="Service / Maintenance">Service / Maintenance</option>
+              <option value="Engineering / Design">Engineering / Design</option>
+              <option value="Front Office">Front Office</option>
+              <option value="Accounting / Pembukuan">Accounting / Pembukuan</option>
+              <option value="General Affairs">General Affairs</option>
+              <option value="Administrasi">Administrasi</option>
+              <option value="HRD">HRD</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Gaji yang Diinginkan (Rp)</label>
+            <input type="text" id="gaji_diinginkan" class="form-input" placeholder="Contoh: 4.500.000" />
+          </div>
+        </div>
+
+        <div class="flex justify-between pt-4 border-t border-slate-100">
+          <button type="button" onclick="setStep(3)" class="border border-slate-300 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-lg">Kembali</button>
+          <button type="button" onclick="setStep(5)" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-5 py-2.5 rounded-lg">Selanjutnya: Aktivitas Sosial <i class="fa-solid fa-arrow-right ml-1.5"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 5: AKTIVITAS SOSIAL & GAMBARAN DIRI -->
+      <div id="step-5" class="hidden space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <h2 class="text-base font-bold text-slate-900">Bagian 5 — Aktivitas Sosial & Gambaran Diri</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Mengisi otomatis Bagian F & G pada sheet FLK.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="form-label">1. Hobby / Kegemaran Anda</label>
+            <input type="text" id="hobi" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">5. Bagaimana Cara Anda Mengisi Waktu Luang ?</label>
+            <input type="text" id="waktu_luang" class="form-input" />
+          </div>
+        </div>
+
+        <!-- Organisasi -->
+        <div>
+          <label class="form-label mb-2">2. Organisasi yang Pernah Diikuti</label>
+          <div class="border border-slate-200 rounded-lg overflow-x-auto">
+            <table class="w-full text-xs">
+              <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                <tr>
+                  <th class="p-2 text-center w-10">No</th>
+                  <th class="p-2 text-left">Nama Organisasi</th>
+                  <th class="p-2 text-left">Tempat</th>
+                  <th class="p-2 text-left">Jabatan</th>
+                  <th class="p-2 text-left w-32">...s/d...</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-org" class="divide-y divide-slate-200"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Kenalan & Psikotes -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="form-label mb-2">3. Kenalan di Perusahaan Kami (Kosongkan jika tidak ada)</label>
+            <div class="border border-slate-200 rounded-lg overflow-x-auto">
+              <table class="w-full text-xs">
+                <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                  <tr>
+                    <th class="p-2 text-center w-8">No</th>
+                    <th class="p-2 text-left">Nama</th>
+                    <th class="p-2 text-left">Jabatan</th>
+                    <th class="p-2 text-left">Hubungan</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-kenalan" class="divide-y divide-slate-200"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label mb-2">4. Riwayat Psikotes (Kosongkan jika belum pernah)</label>
+            <div class="border border-slate-200 rounded-lg overflow-x-auto">
+              <table class="w-full text-xs">
+                <thead class="bg-slate-50 border-b border-slate-200 text-slate-600">
+                  <tr>
+                    <th class="p-2 text-center w-8">No</th>
+                    <th class="p-2 text-left">Tempat</th>
+                    <th class="p-2 text-left w-20">Tahun</th>
+                    <th class="p-2 text-left">Tujuan</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-psiko" class="divide-y divide-slate-200"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="form-label">G.1 Kelebihan (Strong Point) Anda (Min. 3 Sifat)</label>
+            <textarea id="kelebihan" rows="3" class="form-input"></textarea>
+          </div>
+          <div>
+            <label class="form-label">G.2 Kekurangan (Weak Point) Anda (Min. 3 Sifat)</label>
+            <textarea id="kekurangan" rows="3" class="form-input"></textarea>
+          </div>
+        </div>
+
+        <div>
+          <label class="form-label">Berikanlah Gambaran Mengenai Diri Pribadi Anda</label>
+          <p class="text-[11px] text-slate-400 mb-1">Apa yang Anda harapkan dalam hidup ini, prinsip hidup Anda, pendapat teman-teman Anda tentang Anda, ambisi Anda, dll.</p>
+          <textarea id="gambaran_diri" rows="4" class="form-input"></textarea>
+        </div>
+
+        <div class="flex justify-between pt-4 border-t border-slate-100">
+          <button type="button" onclick="setStep(4)" class="border border-slate-300 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-lg">Kembali</button>
+          <button type="button" onclick="setStep(6)" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-5 py-2.5 rounded-lg">Selanjutnya: Bank & TTD <i class="fa-solid fa-arrow-right ml-1.5"></i></button>
+        </div>
+      </div>
+
+      <!-- STEP 6: REKENING PERMATA, BPJS & TANDA TANGAN -->
+      <div id="step-6" class="hidden space-y-6">
+        <div class="border-b border-slate-100 pb-4">
+          <h2 class="text-base font-bold text-slate-900">Bagian 6 — Rekening Bank Permata, BPJS & Tanda Tangan</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Mengisi otomatis sheet No.Rekening, DPA, BPJS, serta tanda tangan pada seluruh dokumen.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div>
+            <label class="form-label">Nama Bank</label>
+            <input type="text" id="bank_nama" value="BANK PERMATA" readonly class="form-input bg-slate-50 font-semibold" />
+          </div>
+          <div>
+            <label class="form-label">No. Rekening Bank Permata *</label>
+            <input type="text" id="bank_norek" required class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Alamat / Cabang Bank *</label>
+            <input type="text" id="bank_alamat" required class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Nama Pemegang Rekening *</label>
+            <input type="text" id="bank_pemilik" required class="form-input uppercase" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="form-label">No. Kartu BPJS Kesehatan (Jika ada)</label>
+            <input type="text" id="bpjs_kes" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">Faskes Tingkat I</label>
+            <input type="text" id="faskes" class="form-input" />
+          </div>
+          <div>
+            <label class="form-label">No. KPJ BPJS Ketenagakerjaan (Jika ada)</label>
+            <input type="text" id="bpjs_tk" class="form-input" />
+          </div>
+        </div>
+
+        <div class="border-t border-slate-100 pt-4">
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <label class="form-label mb-0">Tanda Tangan Digital Peserta *</label>
+              <p class="text-[11px] text-slate-400">Tanda tangan ini otomatis ditempelkan ke sel tanda tangan di Spreadsheet.</p>
+            </div>
+            <button type="button" onclick="clearSig()" class="text-xs text-slate-600 hover:text-slate-900 border border-slate-200 px-3 py-1 rounded-md">
+              Bersihkan
+            </button>
+          </div>
+          <canvas id="sig-canvas" width="360" height="130" class="border border-slate-300 rounded-lg bg-white cursor-crosshair touch-none"></canvas>
+        </div>
+
+        <div id="submit-alert" class="hidden p-3 rounded-lg text-xs font-medium"></div>
+
+        <div class="flex justify-between pt-4 border-t border-slate-100">
+          <button type="button" onclick="setStep(5)" class="border border-slate-300 text-slate-700 text-xs font-semibold px-4 py-2.5 rounded-lg">Kembali</button>
+          <button type="submit" id="btn-submit" class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-6 py-2.5 rounded-lg shadow-sm flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i> Kirim Formulir ke Spreadsheet
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </main>
+
+  <!-- ==================== TAB 2: DASHBOARD HRD & DOWNLOAD ZIP ==================== -->
+  <section id="view-hrd" class="hidden max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 flex-1 space-y-6">
+    
+    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
+        <div>
+          <h2 class="text-base font-bold text-slate-900">Daftar Peserta & Download ZIP (Dari Spreadsheet)</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Pilih peserta, isi kelengkapan kolom HRD jika diperlukan, lalu klik Download ZIP untuk mengunduh 1 file ZIP berisi PDF asli dari setiap sheet Excel.</p>
+        </div>
+        <button onclick="fetchCandidatesFromSpreadsheet()" class="border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-1.5">
+          <i class="fa-solid fa-rotate"></i> Refresh Data Spreadsheet
+        </button>
+      </div>
+
+      <!-- Kolom Isian HRD sebelum Generate ZIP -->
+      <div class="grid grid-cols-2 sm:grid-cols-6 gap-3 my-4 bg-slate-50 p-4 rounded-lg border border-slate-200">
+        <div>
+          <label class="form-label">No. Tes (FLK Y4)</label>
+          <input type="text" id="hrd_notes" class="form-input" placeholder="TES-001" />
+        </div>
+        <div>
+          <label class="form-label">NPK / NRP (DPA/PDK)</label>
+          <input type="text" id="hrd_npk" class="form-input" placeholder="NPK" />
+        </div>
+        <div>
+          <label class="form-label">Kode PT (DPA AM10)</label>
+          <input type="text" id="hrd_kodept" class="form-input" placeholder="AI-DSO" />
+        </div>
+        <div>
+          <label class="form-label">Tgl Masuk (DD/MM/YYYY)</label>
+          <input type="date" id="hrd_tglmasuk" class="form-input" />
+        </div>
+        <div>
+          <label class="form-label">Gaji Pokok DPA (G40)</label>
+          <input type="text" id="hrd_gapok" class="form-input" placeholder="4.500.000" />
+        </div>
+        <div>
+          <label class="form-label">No. Form PDK (AE4)</label>
+          <input type="text" id="hrd_noform" class="form-input" placeholder="/HR/AI-DSO" />
+        </div>
+      </div>
+
+      <div id="zip-status" class="hidden mb-4 p-3 rounded-lg bg-slate-900 text-white text-xs flex items-center justify-between">
+        <span id="zip-status-text"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Sedang mengisi sel Spreadsheet & meng-export masing-masing Sheet menjadi PDF ke dalam ZIP...</span>
+      </div>
+
+      <!-- Tabel Daftar Kandidat -->
+      <div class="border border-slate-200 rounded-lg overflow-x-auto">
+        <table class="w-full text-xs text-left">
+          <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold">
+            <tr>
+              <th class="p-3">Waktu Input</th>
+              <th class="p-3">Nama Lengkap</th>
+              <th class="p-3">Posisi</th>
+              <th class="p-3">No. KTP</th>
+              <th class="p-3">No. HP</th>
+              <th class="p-3">Rekening Permata</th>
+              <th class="p-3 text-right">Aksi Cetakan Spreadsheet</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-candidates" class="divide-y divide-slate-200">
+            <tr>
+              <td colspan="7" class="p-8 text-center text-slate-400">Belum ada data peserta. Silakan isi form atau hubungkan URL Web App Spreadsheet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==================== TAB 3: SETUP KONEKSI SPREADSHEET & APPS SCRIPT ==================== -->
+  <section id="view-setup" class="hidden max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 flex-1 space-y-6">
+    
+    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
+      <h2 class="text-base font-bold text-slate-900">1. Masukkan URL Web App Google Apps Script</h2>
+      <p class="text-xs text-slate-500">Tempelkan URL Web App (`https://script.google.com/macros/s/.../exec`) dari Spreadsheet `Kelengkapan PKB DSO` milikmu.</p>
+      <div class="flex gap-2">
+        <input type="url" id="gas_url_input" placeholder="https://script.google.com/macros/s/AKfycb.../exec" class="form-input flex-1" />
+        <button onclick="saveGasUrl()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-5 py-2 rounded-lg">
+          Simpan URL
+        </button>
+      </div>
+      <p id="gas_saved_msg" class="text-xs text-emerald-600 font-medium hidden">URL berhasil disimpan di browser.</p>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm space-y-4">
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-base font-bold text-slate-900">2. Kode Google Apps Script (`Code.gs`) — Sinkron 100% dengan Sel File `Kelengkapan PKB DSO.xlsx`</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Upload file `Kelengkapan PKB DSO.xlsx` ke Google Drive &rarr; buka sebagai Google Sheets &rarr; klik <strong>Extensions &gt; Apps Script</strong> &rarr; tempelkan kode di bawah ini.</p>
+        </div>
+        <button onclick="copyGasCode()" class="border border-slate-300 hover:bg-slate-50 text-slate-700 text-xs font-semibold px-3.5 py-2 rounded-lg">
+          <i class="fa-regular fa-copy mr-1"></i> Copy Code.gs
+        </button>
+      </div>
+
+      <pre id="gas-code-block" class="bg-slate-900 text-slate-100 p-4 rounded-xl text-[11px] overflow-x-auto leading-relaxed"><code>// =========================================================================================
+// CODE.GS — AUTO-FILL KE SEL ASLI "Kelengkapan PKB DSO.xlsx" & EXPORT .ZIP (BERISI PDF ASLI)
+// =========================================================================================
+
+const DB_SHEET_NAME = 'DB_KANDIDAT';
+
+function doPost(e) {
+  try {
+    const body = JSON.parse(e.postData.contents);
+    const action = body.action || 'SUBMIT';
+
+    if (action === 'SUBMIT') {
+      return saveCandidate(body.data);
+    } else if (action === 'GENERATE_ZIP') {
+      return generateZipFromTemplate(body.data, body.hrd || {});
+    }
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(DB_SHEET_NAME);
+  if (!sheet || sheet.getLastRow() <= 1) {
+    return ContentService.createTextOutput(JSON.stringify({ status: 'success', data: [] }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  const rows = sheet.getDataRange().getValues();
+  rows.shift();
+  const list = rows.map(r => JSON.parse(r[6])).reverse();
+  return ContentService.createTextOutput(JSON.stringify({ status: 'success', data: list }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// 1. SIMPAN DATA PESERTA KE SHEET "DB_KANDIDAT"
+function saveCandidate(d) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(DB_SHEET_NAME);
+  if (!sheet) {
+    sheet = ss.insertSheet(DB_SHEET_NAME);
+    sheet.appendRow(['Timestamp', 'Nama_Lengkap', 'Posisi', 'No_KTP', 'No_HP', 'Rekening_Permata', 'JSON_Payload']);
+  }
+  d.timestamp = new Date().toLocaleString('id-ID');
+  sheet.appendRow([d.timestamp, d.nama, d.posisi, "'" + d.ktp, "'" + d.hp, "'" + d.bank_norek, JSON.stringify(d)]);
+  return ContentService.createTextOutput(JSON.stringify({ status: 'success' }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// 2. ISI SEL TEMPLATE SPREADSHEET ASLI & EXPORT TIAP SHEET JADI PDF KE DALAM 1 FILE .ZIP
+function generateZipFromTemplate(d, hrd) {
+  const masterSS = SpreadsheetApp.getActiveSpreadsheet();
+  const tempFile = DriveApp.getFileById(masterSS.getId()).makeCopy('TEMP_PKB_' + d.nama);
+  const tempSS = SpreadsheetApp.openById(tempFile.getId());
+
+  // Helper taruh tanda tangan Base64 ke sel
+  function insertSign(sheet, cellA1) {
+    if (!d.signature || d.signature.indexOf('base64,') === -1) return;
+    const base64 = d.signature.split('base64,')[1];
+    const blob = Utilities.newBlob(Utilities.base64Decode(base64), 'image/png', 'ttd.png');
+    const range = sheet.getRange(cellA1);
+    const img = sheet.insertImage(blob, range.getColumn(), range.getRow());
+    img.setWidth(110).setHeight(45);
+  }
+
+  // ---------------- A. ISI SHEET "FLK" ----------------
+  const flk = tempSS.getSheetByName('FLK');
+  if (flk) {
+    flk.getRange('Y3').setValue(d.posisi);
+    flk.getRange('Y4').setValue(hrd.notes || '');
+    flk.getRange('K8').setValue(d.nama);
+    flk.getRange('Z8').setValue(d.panggilan);
+    flk.getRange('K9').setValue(d.tempat_lahir + ', ' + d.tgl_lahir);
+    flk.getRange('Z9').setValue(d.agama);
+    flk.getRange('K10').setValue("'" + d.ktp);
+    flk.getRange('Z10').setValue(d.jk);
+    flk.getRange('K11').setValue("'" + d.hp);
+    flk.getRange('K12').setValue(d.alamat);
+    flk.getRange('C13').setValue(d.kota);
+    flk.getRange('O13').setValue(d.kodepos);
+
+    if (d.status_nikah === 'Tunangan') flk.getRange('Q18').setValue(d.tgl_nikah);
+    if (d.status_nikah === 'Menikah') flk.getRange('Q19').setValue(d.tgl_nikah);
+    if (d.status_nikah === 'Bercerai') flk.getRange('Q20').setValue(d.tgl_nikah);
+
+    // Susunan Keluarga Inti (Baris 24 - 28)
+    (d.keluarga_inti || []).forEach((k, i) => {
+      const r = 24 + i;
+      if (r <= 28 && k.nama) {
+        flk.getRange('E' + r).setValue(k.nama);
+        flk.getRange('L' + r).setValue(k.lp);
+        flk.getRange('M' + r).setValue(k.ttl);
+        flk.getRange('S' + r).setValue(k.pend);
+        flk.getRange('Y' + r).setValue(k.pek);
+      }
+    });
+
+    // Susunan Keluarga Ortu & Saudara (Baris 32 - 40)
+    (d.keluarga_ortu || []).forEach((k, i) => {
+      const r = 32 + i;
+      if (r <= 40 && k.nama) {
+        flk.getRange('E' + r).setValue(k.nama);
+        flk.getRange('L' + r).setValue(k.lp);
+        flk.getRange('M' + r).setValue(k.ttl);
+        flk.getRange('S' + r).setValue(k.pend);
+        flk.getRange('Y' + r).setValue(k.pek);
+      }
+    });
+
+    // Pendidikan Formal (Baris 52 - 54: SMA, Dipl, S1)
+    (d.pendidikan || []).forEach((p, i) => {
+      const r = 52 + i;
+      if (r <= 54 && p.nama) {
+        flk.getRange('C' + r).setValue(p.nama);
+        flk.getRange('I' + r).setValue(p.fak);
+        flk.getRange('M' + r).setValue(p.jur);
+        flk.getRange('Q' + r).setValue(p.prodi);
+        flk.getRange('T' + r).setValue(p.kota);
+        flk.getRange('X' + r).setValue(p.thn);
+        flk.getRange('AB' + r).setValue(p.ket);
+      }
+    });
+
+    // Kursus Non Formal (Baris 58 - 59)
+    (d.kursus || []).forEach((k, i) => {
+      const r = 58 + i;
+      if (r <= 59 && k.nama) {
+        flk.getRange('B' + r).setValue(k.nama);
+        flk.getRange('M' + r).setValue(k.tempat);
+        flk.getRange('T' + r).setValue(k.thn);
+        flk.getRange('Y' + r).setValue(k.ket);
+      }
+    });
+
+    // Bahasa Asing (Baris 64 - 65)
+    (d.bahasa || []).forEach((b, i) => {
+      const r = 64 + i;
+      if (r <= 65 && b.nama) {
+        flk.getRange('B' + r).setValue(b.nama);
+        if (b.lisan === 'Kurang') flk.getRange('M' + r).setValue('V');
+        if (b.lisan === 'Cukup') flk.getRange('P' + r).setValue('V');
+        if (b.lisan === 'Baik') flk.getRange('S' + r).setValue('V');
+        if (b.tulis === 'Kurang') flk.getRange('V' + r).setValue('V');
+        if (b.tulis === 'Cukup') flk.getRange('Y' + r).setValue('V');
+        if (b.tulis === 'Baik') flk.getRange('AB' + r).setValue('V');
+      }
+    });
+
+    // Pengalaman Kerja (Baris 70 - 74)
+    (d.kerja || []).forEach((pk, i) => {
+      const r = 70 + i;
+      if (r <= 74 && pk.pt) {
+        flk.getRange('B' + r).setValue(pk.pt);
+        flk.getRange('J' + r).setValue(pk.jab);
+        flk.getRange('O' + r).setValue(pk.thn);
+        flk.getRange('T' + r).setValue(pk.gaji);
+        flk.getRange('Y' + r).setValue(pk.alasan);
+      }
+    });
+
+    flk.getRange('O76').setValue(d.pt_senang);
+    flk.getRange('E77').setValue(d.alasan_senang);
+
+    // Prioritas Minat (O83:O87 & AD83:AD87)
+    const mapMinat = {
+      'Sales': 'O83', 'Teknologi Informasi (IT)': 'O84', 'Production / Manufaktur': 'O85',
+      'Service / Maintenance': 'O86', 'Engineering / Design': 'O87',
+      'Front Office': 'AD83', 'Accounting / Pembukuan': 'AD84', 'General Affairs': 'AD85',
+      'Administrasi': 'AD86', 'HRD': 'AD87'
+    };
+    (d.minat || []).forEach((m, idx) => {
+      if (mapMinat[m]) flk.getRange(mapMinat[m]).setValue(idx + 1);
+    });
+
+    flk.getRange('N90').setValue(d.gaji_diinginkan);
+    flk.getRange('I93').setValue(d.hobi);
+
+    // Organisasi (Baris 98 - 99)
+    (d.org || []).forEach((o, i) => {
+      const r = 98 + i;
+      if (r <= 99 && o.nama) {
+        flk.getRange('B' + r).setValue(o.nama);
+        flk.getRange('M' + r).setValue(o.tempat);
+        flk.getRange('S' + r).setValue(o.jab);
+        flk.getRange('AA' + r).setValue(o.thn);
+      }
+    });
+
+    // Kenalan (Baris 103 - 104)
+    (d.kenalan || []).forEach((kn, i) => {
+      const r = 103 + i;
+      if (r <= 104 && kn.nama) {
+        flk.getRange('B' + r).setValue(kn.nama);
+        flk.getRange('M' + r).setValue(kn.jab);
+        flk.getRange('V' + r).setValue(kn.hub);
+      }
+    });
+
+    // Psikotes (Baris 108 - 109)
+    (d.psiko || []).forEach((ps, i) => {
+      const r = 108 + i;
+      if (r <= 109 && ps.tempat) {
+        flk.getRange('B' + r).setValue(ps.tempat);
+        flk.getRange('M' + r).setValue(ps.thn);
+        flk.getRange('V' + r).setValue(ps.tujuan);
+      }
+    });
+
+    flk.getRange('N111').setValue(d.waktu_luang);
+    flk.getRange('A116').setValue(d.kelebihan);
+    flk.getRange('A119').setValue(d.kekurangan);
+    flk.getRange('A124').setValue(d.gambaran_diri);
+    flk.getRange('P135').setValue(d.kota);
+    flk.getRange('T135').setValue(new Date().toLocaleDateString('id-ID'));
+    flk.getRange('R140').setValue(d.nama);
+    insertSign(flk, 'R136');
+  }
+
+  // ---------------- B. ISI SHEET "No.Rekening" ----------------
+  const rek = tempSS.getSheetByName('No.Rekening');
+  if (rek) {
+    rek.getRange('E14').setValue(d.nama);
+    rek.getRange('E16').setValue(d.tempat_lahir + ', ' + d.tgl_lahir);
+    rek.getRange('E18').setValue(d.agama);
+    rek.getRange('D24').setValue("'" + d.bank_norek);
+    rek.getRange('E24').setValue(d.bank_alamat);
+    rek.getRange('F24').setValue(d.bank_pemilik);
+    rek.getRange('F44').setValue(d.kota + ', ' + new Date().toLocaleDateString('id-ID'));
+    rek.getRange('F49').setValue('( ' + d.nama + ' )');
+    insertSign(rek, 'F45');
+  }
+
+  // ---------------- C. ISI SHEET "S Setor Uang (SLS,CASHIER)" ----------------
+  const setor = tempSS.getSheetByName('S Setor Uang (SLS,CASHIER)');
+  if (setor) {
+    setor.getRange('C5').setValue(': ' + d.nama);
+    setor.getRange('C6').setValue(': ' + (hrd.npk || ''));
+    setor.getRange('C7').setValue(': ' + d.alamat);
+    setor.getRange('C8').setValue(': ' + d.kota + ' ' + d.kodepos);
+    setor.getRange('C9').setValue(': ' + d.posisi);
+    setor.getRange('C10').setValue(': ' + d.ktp);
+    setor.getRange('A20').setValue(d.kota + ', ' + new Date().toLocaleDateString('id-ID'));
+    setor.getRange('A25').setValue('( ' + d.nama + ' )');
+    insertSign(setor, 'A22');
+  }
+
+  // ---------------- D. ISI SHEET "DPA" ----------------
+  const dpa = tempSS.getSheetByName('DPA');
+  if (dpa) {
+    const dob = (d.tgl_lahir || '--').split('-');
+    const tglM = (hrd.tglmasuk || '--').split('-');
+    dpa.getRange('E9').setValue('PT ASTRA INTERNATIONAL Tbk - DSO');
+    dpa.getRange('AM10').setValue(hrd.kodept || '');
+    dpa.getRange('E11').setValue(hrd.npk || '');
+    dpa.getRange('E15').setValue(d.nama);
+    dpa.getRange('E24').setValue(d.alamat + ', ' + d.kota + ' ' + d.kodepos);
+    dpa.getRange('E28').setValue(d.email);
+    dpa.getRange('E30').setValue("'" + d.telp_rumah);
+    dpa.getRange('E32').setValue("'" + d.hp);
+    if (dob.length === 3) {
+      dpa.getRange('E34').setValue(dob[2]);
+      dpa.getRange('K34').setValue(dob[1]);
+      dpa.getRange('Q34').setValue(dob[0]);
+    }
+    if (tglM.length === 3) {
+      dpa.getRange('E36').setValue(tglM[2]);
+      dpa.getRange('K36').setValue(tglM[1]);
+      dpa.getRange('Q36').setValue(tglM[0]);
+    }
+    dpa.getRange('G40').setValue(hrd.gapok || '');
+
+    // Tabel Ahli Waris DPA (Baris 47 - 52)
+    (d.waris || []).forEach((w, i) => {
+      const r = 47 + i;
+      if (r <= 52 && w.nama) {
+        dpa.getRange('A' + r).setValue(i + 1);
+        dpa.getRange('C' + r).setValue(w.nama);
+        dpa.getRange('E' + r).setValue(w.ttl);
+        dpa.getRange('N' + r).setValue(w.lp);
+        dpa.getRange('V' + r).setValue(w.hub);
+        dpa.getRange('AG' + r).setValue(w.pek);
+      }
+    });
+
+    dpa.getRange('E58').setValue(d.bank_pemilik);
+    dpa.getRange('E60').setValue(d.bank_nama + ' - ' + d.bank_alamat);
+    dpa.getRange('E62').setValue("'" + d.bank_norek);
+    dpa.getRange('AB70').setValue('( ' + d.nama + ' )');
+    insertSign(dpa, 'AB66');
+  }
+
+  // ---------------- E. ISI SHEET "PDK" ----------------
+  const pdk = tempSS.getSheetByName('PDK');
+  if (pdk) {
+    if (hrd.noform) pdk.getRange('AE4').setValue(': ' + hrd.noform);
+    pdk.getRange('N10').setValue(d.nama);
+    pdk.getRange('N11').setValue(hrd.npk || '');
+    pdk.getRange('N12').setValue(d.agama);
+    pdk.getRange('N13').setValue(d.jk);
+    pdk.getRange('N14').setValue("'" + d.ktp);
+    pdk.getRange('N15').setValue(d.tempat_lahir + ', ' + d.tgl_lahir);
+    pdk.getRange('N16').setValue(d.alamat + ', ' + d.kota + ' ' + d.kodepos);
+    pdk.getRange('N18').setValue("'" + d.hp);
+
+    if (d.status_nikah === 'Menikah') pdk.getRange('N25').setValue(d.tgl_nikah);
+    if (d.status_nikah === 'Bercerai') pdk.getRange('N26').setValue(d.tgl_nikah);
+
+    // Susunan Keluarga PDK (Baris 31 - 35)
+    const gabungKeluarga = (d.keluarga_inti || []).filter(x => x.nama).concat((d.keluarga_ortu || []).filter(x => x.nama));
+    gabungKeluarga.slice(0, 5).forEach((k, i) => {
+      const r = 31 + i;
+      pdk.getRange('D' + r).setValue(i + 1);
+      pdk.getRange('F' + r).setValue(k.hub);
+      pdk.getRange('N' + r).setValue(k.nama);
+      pdk.getRange('X' + r).setValue(k.lp);
+      pdk.getRange('Z' + r).setValue(k.ttl);
+      pdk.getRange('AH' + r).setValue(k.pek);
+    });
+
+    // Data Ahli Waris PDK (Baris 40 - 44)
+    (d.waris || []).forEach((w, i) => {
+      const r = 40 + i;
+      if (r <= 44 && w.nama) {
+        pdk.getRange('D' + r).setValue(i + 1);
+        pdk.getRange('F' + r).setValue(w.hub);
+        pdk.getRange('N' + r).setValue(w.nama);
+        pdk.getRange('X' + r).setValue(w.lp);
+        pdk.getRange('Z' + r).setValue(w.ttl);
+        pdk.getRange('AH' + r).setValue(w.pek);
+      }
+    });
+
+    pdk.getRange('C50').setValue(d.kota + ', ' + new Date().toLocaleDateString('id-ID'));
+    pdk.getRange('C52').setValue('( ' + d.nama + ' )');
+    insertSign(pdk, 'C50');
+  }
+
+  SpreadsheetApp.flush();
+
+  // ---------------- EXPORT TIAP SHEET JADI PDF ASLI & BUNGKUS .ZIP ----------------
+  const sheetsToExport = ['List Kelengkapan', 'FLK', 'No.Rekening', 'S Setor Uang (SLS,CASHIER)', 'DPA', 'PDK', 'BPJS'];
+  const pdfBlobs = [];
+  const token = ScriptApp.getOAuthToken();
+  const ssId = tempSS.getId();
+
+  sheetsToExport.forEach((sName, idx) => {
+    const sh = tempSS.getSheetByName(sName);
+    if (!sh) return;
+    // Skip Surat Setor Uang jika bukan Sales / Counter Sales / Kasir
+    if (sName === 'S Setor Uang (SLS,CASHIER)' && !/sales|kasir|cashier/i.test(d.posisi)) return;
+
+    const url = 'https://docs.google.com/spreadsheets/d/' + ssId + '/export?' +
+      'format=pdf&size=A4&portrait=true&fitw=true&sheetnames=false&printtitle=false&pagenumbers=false&gridlines=false&fzr=false&gid=' + sh.getSheetId();
+    const res = UrlFetchApp.fetch(url, { headers: { Authorization: 'Bearer ' + token } });
+    const cleanName = sName.replace(/[^a-zA-Z0-9]/g, '_');
+    pdfBlobs.push(res.getBlob().setName('0' + (idx + 1) + '_' + cleanName + '_' + d.nama.replace(/\s+/g, '_') + '.pdf'));
+  });
+
+  const zipBlob = Utilities.zip(pdfBlobs, 'PKB_DSO_' + d.nama.replace(/\s+/g, '_') + '.zip');
+  const zipBase64 = Utilities.base64Encode(zipBlob.getBytes());
+
+  // Hapus file temporary setelah selesai di-export
+  DriveApp.getFileById(ssId).setTrashed(true);
+
+  return ContentService.createTextOutput(JSON.stringify({
+    status: 'success',
+    filename: 'PKB_DSO_' + d.nama.replace(/\s+/g, '_') + '.zip',
+    zipBase64: zipBase64
+  })).setMimeType(ContentService.MimeType.JSON);
+}</code></pre>
+    </div>
+
+  </section>
+
+  <script>
+    let GAS_URL = localStorage.getItem('PKB_DSO_GAS_URL') || '';
+    let localCandidates = [];
+
+    // Generate baris tabel kosong sesuai jumlah baris di Excel asli
+    function initEmptyTables() {
+      // 1. Keluarga Inti (Suami/Istri + Anak 1 s/d 4)
+      const relationsInti = ['Suami/Istri', 'Anak 1', 'Anak 2', 'Anak 3', 'Anak 4'];
+      document.getElementById('tbody-inti').innerHTML = relationsInti.map((rel, i) => `
+        <tr>
+          <td class="p-2 font-medium text-slate-700 bg-slate-50/60">${rel}</td>
+          <td class="p-1"><input type="text" id="ki_nama_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1">
+            <select id="ki_lp_${i}" class="table-input">
+              <option value=""></option><option value="L">L</option><option value="P">P</option>
+            </select>
+          </td>
+          <td class="p-1"><input type="text" id="ki_ttl_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="ki_pend_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="ki_pek_${i}" class="table-input" placeholder="..." /></td>
+        </tr>
+      `).join('');
+
+      // 2. Keluarga Ortu (Ayah, Ibu, Anak 1 s/d 7)
+      const relationsOrtu = ['Ayah', 'Ibu', 'Anak 1', 'Anak 2', 'Anak 3', 'Anak 4', 'Anak 5', 'Anak 6', 'Anak 7'];
+      document.getElementById('tbody-ortu').innerHTML = relationsOrtu.map((rel, i) => `
+        <tr>
+          <td class="p-2 font-medium text-slate-700 bg-slate-50/60">${rel}</td>
+          <td class="p-1"><input type="text" id="ko_nama_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1">
+            <select id="ko_lp_${i}" class="table-input">
+              <option value=""></option>
+              <option value="L" ${rel==='Ayah'?'selected':''}>L</option>
+              <option value="P" ${rel==='Ibu'?'selected':''}>P</option>
+            </select>
+          </td>
+          <td class="p-1"><input type="text" id="ko_ttl_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="ko_pend_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="ko_pek_${i}" class="table-input" placeholder="..." /></td>
+        </tr>
+      `).join('');
+
+      // 3. Ahli Waris (3 Baris)
+      document.getElementById('tbody-waris').innerHTML = [0, 1, 2].map(i => `
+        <tr>
+          <td class="p-2 text-center text-slate-500 bg-slate-50/60">${i + 1}</td>
+          <td class="p-1"><input type="text" id="aw_nama_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="aw_ttl_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1">
+            <select id="aw_lp_${i}" class="table-input">
+              <option value=""></option><option value="L">L</option><option value="P">P</option>
+            </select>
+          </td>
+          <td class="p-1"><input type="text" id="aw_hub_${i}" class="table-input" placeholder="Ibu / Suami / Istri / Anak" /></td>
+          <td class="p-1"><input type="text" id="aw_pek_${i}" class="table-input" placeholder="..." /></td>
+        </tr>
+      `).join('');
+
+      // 4. Pendidikan Formal (SMA, Dipl., S1)
+      const jenjang = ['SMA', 'Dipl.', 'S1'];
+      document.getElementById('tbody-pendidikan').innerHTML = jenjang.map((j, i) => `
+        <tr>
+          <td class="p-2 font-semibold text-slate-700 bg-slate-50/60">${j}</td>
+          <td class="p-1"><input type="text" id="pf_nama_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="pf_fak_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="pf_jur_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="pf_prodi_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="pf_kota_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="pf_thn_${i}" class="table-input" placeholder="2020 s/d 2023" /></td>
+          <td class="p-1"><input type="text" id="pf_ket_${i}" class="table-input" placeholder="Lulus" /></td>
+        </tr>
+      `).join('');
+
+      // 5. Kursus (2 Baris)
+      document.getElementById('tbody-kursus').innerHTML = [0, 1].map(i => `
+        <tr>
+          <td class="p-2 text-center text-slate-500 bg-slate-50/60">${i + 1}</td>
+          <td class="p-1"><input type="text" id="knf_nama_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="knf_tempat_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="knf_thn_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="knf_ket_${i}" class="table-input" placeholder="..." /></td>
+        </tr>
+      `).join('');
+
+      // 6. Bahasa Asing (2 Baris)
+      document.getElementById('tbody-bahasa').innerHTML = [0, 1].map(i => `
+        <tr>
+          <td class="p-2 text-center text-slate-500 bg-slate-50/60">${i + 1}</td>
+          <td class="p-1"><input type="text" id="bhs_nama_${i}" class="table-input" placeholder="Contoh: Inggris" /></td>
+          <td class="p-1">
+            <select id="bhs_lisan_${i}" class="table-input">
+              <option value="">-- Pilih --</option><option value="Kurang">Kurang</option><option value="Cukup">Cukup</option><option value="Baik">Baik</option>
+            </select>
+          </td>
+          <td class="p-1">
+            <select id="bhs_tulis_${i}" class="table-input">
+              <option value="">-- Pilih --</option><option value="Kurang">Kurang</option><option value="Cukup">Cukup</option><option value="Baik">Baik</option>
+            </select>
+          </td>
+        </tr>
+      `).join('');
+
+      // 7. Pengalaman Kerja (5 Baris)
+      document.getElementById('tbody-kerja').innerHTML = [0, 1, 2, 3, 4].map(i => `
+        <tr>
+          <td class="p-2 text-center text-slate-500 bg-slate-50/60">${i + 1}</td>
+          <td class="p-1"><input type="text" id="pk_pt_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="pk_jab_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="pk_thn_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="pk_gaji_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="pk_alasan_${i}" class="table-input" placeholder="..." /></td>
+        </tr>
+      `).join('');
+
+      // 8. Organisasi (2 Baris)
+      document.getElementById('tbody-org').innerHTML = [0, 1].map(i => `
+        <tr>
+          <td class="p-2 text-center text-slate-500 bg-slate-50/60">${i + 1}</td>
+          <td class="p-1"><input type="text" id="org_nama_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="org_tempat_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="org_jab_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="org_thn_${i}" class="table-input" placeholder="..." /></td>
+        </tr>
+      `).join('');
+
+      // 9. Kenalan (2 Baris)
+      document.getElementById('tbody-kenalan').innerHTML = [0, 1].map(i => `
+        <tr>
+          <td class="p-2 text-center text-slate-500 bg-slate-50/60">${i + 1}</td>
+          <td class="p-1"><input type="text" id="knl_nama_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="knl_jab_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="knl_hub_${i}" class="table-input" placeholder="..." /></td>
+        </tr>
+      `).join('');
+
+      // 10. Psikotes (2 Baris)
+      document.getElementById('tbody-psiko').innerHTML = [0, 1].map(i => `
+        <tr>
+          <td class="p-2 text-center text-slate-500 bg-slate-50/60">${i + 1}</td>
+          <td class="p-1"><input type="text" id="psi_tempat_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="psi_thn_${i}" class="table-input" placeholder="..." /></td>
+          <td class="p-1"><input type="text" id="psi_tujuan_${i}" class="table-input" placeholder="..." /></td>
+        </tr>
+      `).join('');
+    }
+
+    // Signature Canvas
+    const sigCanvas = document.getElementById('sig-canvas');
+    const sigCtx = sigCanvas.getContext('2d');
+    let drawing = false;
+
+    function initSignature() {
+      sigCtx.strokeStyle = '#0f172a';
+      sigCtx.lineWidth = 2;
+      sigCtx.lineCap = 'round';
+      const pos = (e) => {
+        const r = sigCanvas.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+        return { x, y };
+      };
+      sigCanvas.addEventListener('mousedown', e => { drawing = true; const p = pos(e); sigCtx.beginPath(); sigCtx.moveTo(p.x, p.y); });
+      sigCanvas.addEventListener('mousemove', e => { if (!drawing) return; const p = pos(e); sigCtx.lineTo(p.x, p.y); sigCtx.stroke(); });
+      window.addEventListener('mouseup', () => { drawing = false; });
+      sigCanvas.addEventListener('touchstart', e => { drawing = true; const p = pos(e); sigCtx.beginPath(); sigCtx.moveTo(p.x, p.y); e.preventDefault(); }, { passive: false });
+      sigCanvas.addEventListener('touchmove', e => { if (!drawing) return; const p = pos(e); sigCtx.lineTo(p.x, p.y); sigCtx.stroke(); e.preventDefault(); }, { passive: false });
+      sigCanvas.addEventListener('touchend', () => { drawing = false; });
+    }
+
+    function clearSig() {
+      sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+    }
+
+    // Navigasi Tab & Step
+    function switchTab(tab) {
+      ['form', 'hrd', 'setup'].forEach(t => {
+        document.getElementById('view-' + t).classList.toggle('hidden', t !== tab);
+        const btn = document.getElementById('tab-btn-' + t);
+        btn.className = t === tab
+          ? 'px-3.5 py-1.5 rounded-md text-xs font-semibold bg-white text-slate-900 shadow-sm transition'
+          : 'px-3.5 py-1.5 rounded-md text-xs font-medium text-slate-600 hover:text-slate-900 transition';
+      });
+      if (tab === 'hrd') renderCandidatesTable();
+    }
+
+    function setStep(step) {
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById('step-' + i).classList.toggle('hidden', i !== step);
+        const nav = document.getElementById('step-nav-' + i);
+        nav.className = i === step
+          ? 'py-2 px-3 rounded-lg font-semibold bg-slate-900 text-white text-left flex items-center gap-2'
+          : 'py-2 px-3 rounded-lg font-medium text-slate-600 hover:bg-slate-50 text-left flex items-center gap-2';
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Kumpulkan semua input form
+    function getPayload() {
+      const relationsInti = ['Suami/Istri', 'Anak 1', 'Anak 2', 'Anak 3', 'Anak 4'];
+      const relationsOrtu = ['Ayah', 'Ibu', 'Anak 1', 'Anak 2', 'Anak 3', 'Anak 4', 'Anak 5', 'Anak 6', 'Anak 7'];
+
+      return {
+        timestamp: new Date().toLocaleString('id-ID'),
+        posisi: document.getElementById('posisi').value,
+        nama: document.getElementById('nama').value.toUpperCase(),
+        panggilan: document.getElementById('panggilan').value.toUpperCase(),
+        tempat_lahir: document.getElementById('tempat_lahir').value,
+        tgl_lahir: document.getElementById('tgl_lahir').value,
+        jk: document.getElementById('jk').value,
+        agama: document.getElementById('agama').value,
+        ktp: document.getElementById('ktp').value,
+        npwp: document.getElementById('npwp').value,
+        alamat: document.getElementById('alamat').value,
+        kota: document.getElementById('kota').value,
+        kodepos: document.getElementById('kodepos').value,
+        hp: document.getElementById('hp').value,
+        telp_rumah: document.getElementById('telp_rumah').value,
+        email: document.getElementById('email').value,
+        rumah: document.getElementById('rumah').value,
+        kendaraan: document.getElementById('kendaraan').value,
+        status_nikah: document.getElementById('status_nikah').value,
+        status_dpa: document.getElementById('status_dpa').value,
+        tgl_nikah: document.getElementById('tgl_nikah').value,
+        keluarga_inti: relationsInti.map((hub, i) => ({
+          hub,
+          nama: document.getElementById(`ki_nama_${i}`).value,
+          lp: document.getElementById(`ki_lp_${i}`).value,
+          ttl: document.getElementById(`ki_ttl_${i}`).value,
+          pend: document.getElementById(`ki_pend_${i}`).value,
+          pek: document.getElementById(`ki_pek_${i}`).value
+        })),
+        keluarga_ortu: relationsOrtu.map((hub, i) => ({
+          hub,
+          nama: document.getElementById(`ko_nama_${i}`).value,
+          lp: document.getElementById(`ko_lp_${i}`).value,
+          ttl: document.getElementById(`ko_ttl_${i}`).value,
+          pend: document.getElementById(`ko_pend_${i}`).value,
+          pek: document.getElementById(`ko_pek_${i}`).value
+        })),
+        waris: [0, 1, 2].map(i => ({
+          nama: document.getElementById(`aw_nama_${i}`).value,
+          ttl: document.getElementById(`aw_ttl_${i}`).value,
+          lp: document.getElementById(`aw_lp_${i}`).value,
+          hub: document.getElementById(`aw_hub_${i}`).value,
+          pek: document.getElementById(`aw_pek_${i}`).value
+        })),
+        pendidikan: [0, 1, 2].map(i => ({
+          nama: document.getElementById(`pf_nama_${i}`).value,
+          fak: document.getElementById(`pf_fak_${i}`).value,
+          jur: document.getElementById(`pf_jur_${i}`).value,
+          prodi: document.getElementById(`pf_prodi_${i}`).value,
+          kota: document.getElementById(`pf_kota_${i}`).value,
+          thn: document.getElementById(`pf_thn_${i}`).value,
+          ket: document.getElementById(`pf_ket_${i}`).value
+        })),
+        kursus: [0, 1].map(i => ({
+          nama: document.getElementById(`knf_nama_${i}`).value,
+          tempat: document.getElementById(`knf_tempat_${i}`).value,
+          thn: document.getElementById(`knf_thn_${i}`).value,
+          ket: document.getElementById(`knf_ket_${i}`).value
+        })),
+        bahasa: [0, 1].map(i => ({
+          nama: document.getElementById(`bhs_nama_${i}`).value,
+          lisan: document.getElementById(`bhs_lisan_${i}`).value,
+          tulis: document.getElementById(`bhs_tulis_${i}`).value
+        })),
+        kerja: [0, 1, 2, 3, 4].map(i => ({
+          pt: document.getElementById(`pk_pt_${i}`).value,
+          jab: document.getElementById(`pk_jab_${i}`).value,
+          thn: document.getElementById(`pk_thn_${i}`).value,
+          gaji: document.getElementById(`pk_gaji_${i}`).value,
+          alasan: document.getElementById(`pk_alasan_${i}`).value
+        })),
+        pt_senang: document.getElementById('pt_senang').value,
+        alasan_senang: document.getElementById('alasan_senang').value,
+        minat: [
+          document.getElementById('minat_1').value,
+          document.getElementById('minat_2').value,
+          document.getElementById('minat_3').value
+        ],
+        gaji_diinginkan: document.getElementById('gaji_diinginkan').value,
+        hobi: document.getElementById('hobi').value,
+        waktu_luang: document.getElementById('waktu_luang').value,
+        org: [0, 1].map(i => ({
+          nama: document.getElementById(`org_nama_${i}`).value,
+          tempat: document.getElementById(`org_tempat_${i}`).value,
+          jab: document.getElementById(`org_jab_${i}`).value,
+          thn: document.getElementById(`org_thn_${i}`).value
+        })),
+        kenalan: [0, 1].map(i => ({
+          nama: document.getElementById(`knl_nama_${i}`).value,
+          jab: document.getElementById(`knl_jab_${i}`).value,
+          hub: document.getElementById(`knl_hub_${i}`).value
+        })),
+        psiko: [0, 1].map(i => ({
+          tempat: document.getElementById(`psi_tempat_${i}`).value,
+          thn: document.getElementById(`psi_thn_${i}`).value,
+          tujuan: document.getElementById(`psi_tujuan_${i}`).value
+        })),
+        kelebihan: document.getElementById('kelebihan').value,
+        kekurangan: document.getElementById('kekurangan').value,
+        gambaran_diri: document.getElementById('gambaran_diri').value,
+        bank_nama: document.getElementById('bank_nama').value,
+        bank_norek: document.getElementById('bank_norek').value,
+        bank_alamat: document.getElementById('bank_alamat').value,
+        bank_pemilik: document.getElementById('bank_pemilik').value.toUpperCase(),
+        bpjs_kes: document.getElementById('bpjs_kes').value,
+        faskes: document.getElementById('faskes').value,
+        bpjs_tk: document.getElementById('bpjs_tk').value,
+        signature: sigCanvas.toDataURL('image/png')
+      };
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const payload = getPayload();
+      const btn = document.getElementById('btn-submit');
+      const alertBox = document.getElementById('submit-alert');
+
+      localCandidates.unshift(payload);
+
+      if (GAS_URL) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan ke Spreadsheet...';
+        try {
+          await fetch(GAS_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'SUBMIT', data: payload })
+          });
+          alertBox.className = 'p-3 rounded-lg text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200';
+          alertBox.textContent = 'Data berhasil disimpan ke Google Spreadsheet!';
+          alertBox.classList.remove('hidden');
+        } catch (err) {
+          alertBox.className = 'p-3 rounded-lg text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200';
+          alertBox.textContent = 'Tersimpan di sesi lokal. Pastikan URL Web App sudah di-deploy dengan akses Anyone.';
+          alertBox.classList.remove('hidden');
+        }
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Kirim Formulir ke Spreadsheet';
+      }
+
+      document.getElementById('candidate-form').reset();
+      clearSig();
+      setStep(1);
+      switchTab('hrd');
+    }
+
+    async function fetchCandidatesFromSpreadsheet() {
+      if (!GAS_URL) {
+        alert('Masukkan URL Web App Google Apps Script terlebih dahulu di menu Koneksi Spreadsheet.');
+        switchTab('setup');
+        return;
+      }
+      try {
+        const res = await fetch(GAS_URL);
+        const json = await res.json();
+        if (json.data) {
+          localCandidates = json.data;
+          renderCandidatesTable();
+        }
+      } catch (err) {
+        alert('Gagal mengambil data dari Spreadsheet. Periksa URL Web App Anda.');
+      }
+    }
+
+    function renderCandidatesTable() {
+      const tbody = document.getElementById('tbody-candidates');
+      if (!localCandidates.length) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-400">Belum ada data peserta. Silakan isi form atau klik Refresh Data Spreadsheet.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = localCandidates.map((c, idx) => `
+        <tr class="hover:bg-slate-50">
+          <td class="p-3 text-slate-500">${c.timestamp || '-'}</td>
+          <td class="p-3 font-semibold text-slate-900">${c.nama}</td>
+          <td class="p-3">${c.posisi}</td>
+          <td class="p-3">${c.ktp}</td>
+          <td class="p-3">${c.hp}</td>
+          <td class="p-3">${c.bank_norek}</td>
+          <td class="p-3 text-right">
+            <button onclick="downloadZipFromSpreadsheet(${idx})" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-1.5 rounded-lg text-xs shadow-sm inline-flex items-center gap-1.5">
+              <i class="fa-solid fa-file-zipper"></i> Download .ZIP (PDF Excel)
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // Request ke Apps Script untuk mengisi sel Excel asli & mengunduh bundel ZIP berisi PDF tiap sheet
+    async function downloadZipFromSpreadsheet(idx) {
+      const candidate = localCandidates[idx];
+      if (!GAS_URL) {
+        alert('Untuk mengunduh .ZIP hasil export PDF asli dari Spreadsheet, silakan masukkan URL Web App Google Apps Script di tab "Koneksi Spreadsheet" terlebih dahulu.');
+        switchTab('setup');
+        return;
+      }
+
+      const hrdData = {
+        notes: document.getElementById('hrd_notes').value,
+        npk: document.getElementById('hrd_npk').value,
+        kodept: document.getElementById('hrd_kodept').value,
+        tglmasuk: document.getElementById('hrd_tglmasuk').value,
+        gapok: document.getElementById('hrd_gapok').value,
+        noform: document.getElementById('hrd_noform').value
+      };
+
+      const statusBox = document.getElementById('zip-status');
+      statusBox.classList.remove('hidden');
+
+      try {
+        const res = await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'GENERATE_ZIP', data: candidate, hrd: hrdData })
+        });
+        const result = await res.json();
+        if (result.status === 'success' && result.zipBase64) {
+          const byteCharacters = atob(result.zipBase64);
+          const byteNumbers = new Array(byteCharacters.length);
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+          const blob = new Blob([new Uint8Array(byteNumbers)], { type: 'application/zip' });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = result.filename || `PKB_DSO_${candidate.nama}.zip`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          alert('Gagal membuat ZIP: ' + (result.message || 'Unknown error'));
+        }
+      } catch (err) {
+        alert('Terjadi kesalahan saat menghubungi Google Apps Script: ' + err.message);
+      } finally {
+        statusBox.classList.add('hidden');
+      }
+    }
+
+    function saveGasUrl() {
+      const val = document.getElementById('gas_url_input').value.trim();
+      GAS_URL = val;
+      localStorage.setItem('PKB_DSO_GAS_URL', val);
+      const msg = document.getElementById('gas_saved_msg');
+      msg.classList.remove('hidden');
+      setTimeout(() => msg.classList.add('hidden'), 3000);
+    }
+
+    function copyGasCode() {
+      const code = document.getElementById('gas-code-block').innerText;
+      navigator.clipboard.writeText(code);
+      alert('Kode Code.gs berhasil disalin!');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initEmptyTables();
+      initSignature();
+      if (GAS_URL) document.getElementById('gas_url_input').value = GAS_URL;
+    });
+  </script>
+</body>
+</html>
